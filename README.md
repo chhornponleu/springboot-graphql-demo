@@ -1,0 +1,1 @@
+Run the project and open http:localhost:8080/graphiql
