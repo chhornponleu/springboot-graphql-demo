@@ -35,8 +35,8 @@ public class CarApiEndpoints {
         graphQL = GraphQL.newGraphQL(schema).build();
     }
 
-    @PostMapping(value = "/graphql", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
+    @PostMapping(value = "/graphql", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Map<String, Object> graphql(@RequestBody Map<String, String> request, HttpServletRequest raw) {
         ExecutionResult executionResult = graphQL.execute(ExecutionInput.newExecutionInput()
                 .query(request.get("query"))

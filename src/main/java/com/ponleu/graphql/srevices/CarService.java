@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ponleu.graphql.models.Car;
 import com.ponleu.graphql.repositoies.CarRepository;
 
+import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 
@@ -24,19 +25,23 @@ public class CarService {
 		return carRepository.findAll();
 	}
 
-	
+	@GraphQLQuery(name = "cars")
+	public List<Car> getCars(@GraphQLArgument(name = "name") String name) {
+		return carRepository.findByNameContains(name);
+	}
+
 	@GraphQLQuery(name = "car")
-	public Optional<Car> getCarById(Long id) {
+	public Optional<Car> getCarById(@GraphQLArgument(name = "id") Long id) {
 		return carRepository.findById(id);
 	}
 
 	@GraphQLMutation(name = "saveCar")
-	public Car saveCar(Car car) {
+	public Car saveCar(@GraphQLArgument(name = "car") Car car) {
 		return carRepository.save(car);
 	}
 
 	@GraphQLMutation(name = "deleteCar")
-	public void deleteCar(Long id) {
+	public void deleteCar(@GraphQLArgument(name = "id") Long id) {
 		carRepository.deleteById(id);
 	}
 
